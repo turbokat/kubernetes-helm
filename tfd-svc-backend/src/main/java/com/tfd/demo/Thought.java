@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Thought implements Serializable {
 
+  /**
+   *
+   */
+  private static final long serialVersionUID = 1L;
+
   @JsonProperty("author")
   private String author;
 
