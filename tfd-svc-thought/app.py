@@ -9,6 +9,12 @@ class Thought(object):
         self.author = author
         self.thought = thought
 
+    def serialize(self):  
+        return {           
+            'author': self.author, 
+            'thought': self.thought
+        }
+
 thoughts = []
 thoughts.append(Thought("Billy Connolly",
       "Before you judge a man, walk a mile in his shoes. After that who cares?... He's a mile away and you've got his shoes!"))
@@ -34,11 +40,11 @@ defaultThought = Thought("Commander Feral, Swat Kats", "Back off, Swat Kats! The
 
 @app.route('/default-thought')
 def default_thought():
-    return jsonify(defaultThought.author, defaultThought.thought)
+    return jsonify(defaultThought.serialize())
 
 @app.route('/thought-for-the-day')
 def thought_for_the_day():
-    return jsonify(thoughts[random.randint(0, 12)].author, thoughts[random.randint(0, 12)].thought)
+    return jsonify(thoughts[random.randint(0, 12)].serialize())
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)

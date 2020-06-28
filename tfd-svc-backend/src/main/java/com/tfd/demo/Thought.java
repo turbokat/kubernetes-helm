@@ -1,9 +1,15 @@
 package com.tfd.demo;
 
-public class Thought {
+import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class Thought implements Serializable {
+
+  @JsonProperty("author")
   private String author;
 
+  @JsonProperty("thought")
   private String thought;
 
   public String getAuthor() {
@@ -18,13 +24,15 @@ public class Thought {
     return thought;
   }
 
-  public void setThought(String thoguht) {
-    this.thought = thoguht;
+  public void setThought(String thought) {
+    this.thought = thought;
+  }
+
+  public Thought() {
   }
 
   public Thought(String author, String thought) {
     this.author = author;
     this.thought = thought;
   }
-  
 }

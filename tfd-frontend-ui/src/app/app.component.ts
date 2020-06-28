@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
 
   onGetThought() {
     this.isFetching = true;
-    this.http.get('http://localhost:8080/thought')
+    this.http.get('http://localhost:8080/thought-for-the-day')
       .subscribe(responseData => {
         console.log(responseData);
         this.todaysThought.author = responseData['author'];

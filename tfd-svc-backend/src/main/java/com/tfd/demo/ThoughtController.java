@@ -1,15 +1,26 @@
 package com.tfd.demo;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class ThoughtController {
 
-  Thought defaultThought = new Thought(
-    "Commander Feral, Swat Kats", "Back off, Swat Kats! The Enforcers are here! This is Feral, bring me chopper backup!");
+  @Value("${tfd.logic.api.url}") // #1
+  private String tfdLogicApiUrl;
+
+  RestTemplate restTemplate = new RestTemplate();
+
+  Thought defaultThought = new Thought("Commander Feral, Swat Kats",
+      "Back off, Swat Kats! The Enforcers are here! This is Feral, bring me chopper backup!");
 
   Thought thoughts[] = new Thought[] { new Thought("Billy Connolly",
       "Before you judge a man, walk a mile in his shoes. After that who cares?... He’s a mile away and you’ve got his shoes!"),
@@ -37,19 +48,19 @@ public class ThoughtController {
   }
 
   @RequestMapping("/default-thought")
-  @CrossOrigin(origins = "*")
   public Thought getDefaultThought() {
-    return defaultThought;
+    System.out.println("using url: " + tfdLogicApiUrl);
+    return restTemplate.getForEntity(tfdLogicApiUrl + "/default-thought", Thought.class).getBody();
 	}
 
-  @RequestMapping("/thought")
-  @CrossOrigin(origins = "*")
+  @RequestMapping("/thought-for-the-day")
   public Thought getTodaysThought() {
     try {
       Thread.sleep(2500);
     } catch (InterruptedException e) {
       return defaultThought;
     }
-		return thoughts[(new Random()).nextInt(10)];
+    System.out.println("using url: " + tfdLogicApiUrl);
+    return restTemplate.getForEntity(tfdLogicApiUrl + "/thought-for-the-day", Thought.class).getBody();
 	}
 }
