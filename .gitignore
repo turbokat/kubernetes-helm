@@ -18,6 +18,8 @@ target
 .env
 .idea
 .settings
+.classpath
+.project
 .mvn
 .DS_Store
 .env.local
