@@ -2,17 +2,13 @@
 
 # dependencies
 node_modules
-target
-*/target/*
-*/target/**
-/target/**
-/target/
 
 # testing
 /coverage
 
 # production
-/build
+dist
+target
 
 # misc
 .env
