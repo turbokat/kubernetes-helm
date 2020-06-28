@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tfd-logic
+  labels:
+    app: tfd-logic
+spec:
+  selector:
+     matchLabels:
+       app: tfd-logic
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: tfd-logic
+    spec:
+      containers:
+        - image: turbokat/tfd-svc-thought
+          imagePullPolicy: Always
+          name: tfd-logic
+          ports:
+            - containerPort: 5000

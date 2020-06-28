@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tfd-frontend
+  labels:
+    app: tfd-frontend
+spec:
+  containers:
+    - image: turbokat/tfd-frontend-ui
+      name: tfd-frontend
+      ports:
+        - containerPort: 80

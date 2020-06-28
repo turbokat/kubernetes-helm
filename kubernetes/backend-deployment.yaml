@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tfd-backend
+  labels:
+    app: tfd-backend
+spec:
+  selector:
+    matchLabels:
+      app: tfd-backend
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+      maxSurge: 1 
+  template:
+    metadata:
+      labels:
+        app: tfd-backend
+    spec:
+      containers:
+      - image: turbokat/tfd-svc-backend
+        imagePullPolicy: Always
+        name: tfd-backend
+        env:
+          - name: TFD_LOGIC_API_URL
+            value: "http://tfd-logic-lb"
+        ports:
+          - containerPort: 8080

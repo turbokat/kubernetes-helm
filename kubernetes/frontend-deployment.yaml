@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tfd-frontend
+spec:
+  selector:
+    matchLabels:
+      app: tfd-frontend
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: tfd-frontend
+    spec:
+      containers:
+        - image: turbokat/tfd-frontend-ui
+          imagePullPolicy: Always
+          name: tfd-frontend
+          ports:
+            - containerPort: 80
