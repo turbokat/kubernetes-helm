@@ -2,6 +2,7 @@
 
 # dependencies
 node_modules
+target
 
 # testing
 /coverage
@@ -12,6 +13,8 @@ node_modules
 # misc
 .env
 .idea
+.settings
+.mvn
 .DS_Store
 .env.local
 .env.development.local
@@ -35,9 +38,6 @@ public/gadget.xml
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-
-# production
-/target
 
 # Package Files #
 *.jar
